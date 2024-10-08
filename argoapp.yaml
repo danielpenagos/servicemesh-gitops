@@ -2,12 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: bookinfo
-  namespace: bookinfo
+  namespace: gitops
 spec:
   destination:
     namespace: bookinfo
     server: https://kubernetes.default.svc
-  project: default
+  project: bookinfo
   source:
     path: bookinfo
     repoURL: https://github.com/danielpenagos/servicemesh-gitops
