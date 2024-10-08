@@ -4,6 +4,7 @@ oc new-project bookinfo
 oc new-project gitops
 oc label namespace bookinfo istio-injection=enabled
 
+oc apply -f https://raw.githubusercontent.com/danielpenagos/servicemesh-gitops/main/argocp.yaml
 oc apply -f https://raw.githubusercontent.com/danielpenagos/servicemesh-gitops/main/smcp.yaml
 oc apply -f https://raw.githubusercontent.com/danielpenagos/servicemesh-gitops/main/smmr.yaml
 
