@@ -1,0 +1,15 @@
+oc new-project istio-system
+
+oc new-project bookinfo
+oc new-project gitops
+oc label namespace bookinfo istio-injection=enabled
+
+oc apply -f https://raw.githubusercontent.com/danielpenagos/servicemesh-gitops/main/smcp.yaml
+oc apply -f https://raw.githubusercontent.com/danielpenagos/servicemesh-gitops/main/smmr.yaml
+
+oc apply -f https://github.com/danielpenagos/servicemesh-gitops/main/argoapp.yaml
+
+echo "http://$(oc -n istio-system get route istio-ingressgateway -o jsonpath='{.spec.host}')/productpage"
+
+while true; do curl -sSL "http://$(oc -n istio-system get route istio-ingressgateway -o jsonpath='{.spec.host}')/productpage" | head -n 5; sleep 1; done
+
