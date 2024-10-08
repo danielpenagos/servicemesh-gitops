@@ -1,0 +1,22 @@
+cat <<EOF | oc apply -f -
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bgd-app
+  namespace: gitops
+spec:
+  destination:
+    namespace: gitops
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: apps/bgd/base
+    repoURL: https://github.com/danielpenagos/gitops-bgd-app
+    targetRevision: anotherproject
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=false
+EOF
