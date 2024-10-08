@@ -1,6 +1,10 @@
 oc new-project istio-system
 
 oc new-project bookinfo
+oc label namespace bookinfo argocd.argoproj.io/managed-by=gitops
+
+
+
 oc new-project gitops
 oc label namespace bookinfo istio-injection=enabled
 
@@ -14,3 +18,7 @@ echo "http://$(oc -n istio-system get route istio-ingressgateway -o jsonpath='{.
 
 while true; do curl -sSL "http://$(oc -n istio-system get route istio-ingressgateway -o jsonpath='{.spec.host}')/productpage" | head -n 5; sleep 1; done
 
+##
+
+oc new-project bgd
+oc label namespace bgd argocd.argoproj.io/managed-by=gitops
